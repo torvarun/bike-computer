@@ -33,7 +33,7 @@ class DataModel : ViewModel() {
         time.value = newTime
     }
 
-    fun getStatus() : Boolean? = status.value
+    fun getStatus() : LiveData<Boolean> = status
 
     fun setStatus(isRunning : Boolean) {
         status.value = isRunning

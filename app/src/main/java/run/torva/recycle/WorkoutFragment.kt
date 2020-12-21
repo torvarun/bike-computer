@@ -22,7 +22,7 @@ class WorkoutFragment : Fragment() {
 
     private var speedView : TextView? = null
     private var distanceView : TextView? = null
-    private var timeChrono : Stopwatch? = null
+    private var timeChrono : StopwatchView? = null
     private var buttonStartStop : Button? = null
 
     override fun onCreateView(
@@ -50,7 +50,7 @@ class WorkoutFragment : Fragment() {
         })
 
         buttonStartStop?.setOnClickListener{
-            val state : Boolean = dataModel.getStatus() ?: false
+            val state : Boolean = dataModel.getStatus().value ?: false
 
             if (state) {
                 // this button click pauses activity
@@ -62,20 +62,20 @@ class WorkoutFragment : Fragment() {
         }
 
         timeChrono?.setOnChronometerTickListener {
-            val stopwatch : Stopwatch = it as Stopwatch
+            val stopwatch : StopwatchView = it as StopwatchView
             dataModel.setTime(stopwatch.stoppedTime)
         }
     }
 
     private fun start() {
-        Log.v(TAG, "starting activity")
+        Log.v(TAG, "starting workout")
         dataModel.setStatus(true)
         timeChrono?.start()
         buttonStartStop?.setText(R.string.stop)
     }
 
     private fun stop() {
-        Log.v(TAG, "stopping activity")
+        Log.v(TAG, "stopping workout")
         dataModel.setStatus(false)
         timeChrono?.stop()
         buttonStartStop?.setText(R.string.start)

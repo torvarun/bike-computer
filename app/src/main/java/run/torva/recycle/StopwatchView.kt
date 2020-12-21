@@ -10,7 +10,7 @@ import android.widget.Chronometer
  *
  * TODO test code
  */
-class Stopwatch : Chronometer {
+class StopwatchView : Chronometer {
     constructor(context : Context) : super(context)
 
     constructor(context: Context, attrs : AttributeSet) : super(context, attrs)
