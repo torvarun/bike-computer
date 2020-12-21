@@ -1,4 +1,4 @@
-package run.torva.recycle
+package run.torva.recycle.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import run.torva.recycle.R
+import run.torva.recycle.vm.DataModel
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -70,6 +72,7 @@ class WorkoutFragment : Fragment() {
         })
 
         dataModel.getTime().observe(viewLifecycleOwner, Observer<Long>{ time ->
+            // TODO format this
             timeView?.text = time.toString()
         })
     }

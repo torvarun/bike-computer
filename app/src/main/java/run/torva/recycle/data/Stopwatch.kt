@@ -1,4 +1,4 @@
-package run.torva.recycle
+package run.torva.recycle.data
 
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService

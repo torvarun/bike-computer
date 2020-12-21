@@ -1,8 +1,9 @@
-package run.torva.recycle
+package run.torva.recycle.vm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import run.torva.recycle.data.Stopwatch
 
 class DataModel : ViewModel(), Stopwatch.Listener {
 
