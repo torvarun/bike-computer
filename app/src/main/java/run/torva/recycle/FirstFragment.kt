@@ -31,10 +31,6 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.button_first).setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
-
         speedView = view.findViewById(R.id.textview_speed)
         distanceView = view.findViewById(R.id.textview_distance)
         timeView = view.findViewById(R.id.textview_time)
