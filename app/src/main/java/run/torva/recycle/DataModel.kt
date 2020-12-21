@@ -4,7 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DataModel : ViewModel() {
+class DataModel : ViewModel(), Stopwatch.Listener {
+
+    private val stopwatch : Stopwatch = Stopwatch()
+    init {
+        stopwatch.listener = this
+    }
 
     private val speed : MutableLiveData<Double> by lazy {
         MutableLiveData<Double>(24.3)
@@ -35,7 +40,27 @@ class DataModel : ViewModel() {
 
     fun getStatus() : LiveData<Boolean> = status
 
-    fun setStatus(isRunning : Boolean) {
-        status.value = isRunning
+    override fun onTimeUpdated(elapsedTimeInSeconds: Long) {
+        time.postValue(elapsedTimeInSeconds)
+    }
+
+    fun start() {
+        if (stopwatch.start()) {
+            status.postValue(true)
+        }
+    }
+
+    fun pause() {
+        stopwatch.pause()
+        status.postValue(false)
+    }
+
+    fun reset() {
+        stopwatch.reset()
+    }
+
+    override fun onCleared() {
+        stopwatch.dispose()
+        super.onCleared()
     }
 }

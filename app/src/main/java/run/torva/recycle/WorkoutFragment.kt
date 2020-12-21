@@ -22,7 +22,7 @@ class WorkoutFragment : Fragment() {
 
     private var speedView : TextView? = null
     private var distanceView : TextView? = null
-    private var timeChrono : StopwatchView? = null
+    private var timeView : TextView? = null
     private var buttonStartStop : Button? = null
 
     override fun onCreateView(
@@ -38,8 +38,8 @@ class WorkoutFragment : Fragment() {
 
         speedView = view.findViewById(R.id.textview_speed)
         distanceView = view.findViewById(R.id.textview_distance)
-        timeChrono = view.findViewById(R.id.chrono_time)
         buttonStartStop = view.findViewById(R.id.button_startstop)
+        timeView = view.findViewById(R.id.textview_time)
 
         dataModel.getSpeed().observe(viewLifecycleOwner, Observer<Double> { speed ->
             speedView?.text = speed.toString()
@@ -61,23 +61,26 @@ class WorkoutFragment : Fragment() {
             }
         }
 
-        timeChrono?.setOnChronometerTickListener {
-            val stopwatch : StopwatchView = it as StopwatchView
-            dataModel.setTime(stopwatch.stoppedTime)
-        }
+        dataModel.getStatus().observe(viewLifecycleOwner, Observer<Boolean>{ isRunning ->
+            if (isRunning) {
+                buttonStartStop?.setText(R.string.stop)
+            } else {
+                buttonStartStop?.setText(R.string.start)
+            }
+        })
+
+        dataModel.getTime().observe(viewLifecycleOwner, Observer<Long>{ time ->
+            timeView?.text = time.toString()
+        })
     }
 
     private fun start() {
         Log.v(TAG, "starting workout")
-        dataModel.setStatus(true)
-        timeChrono?.start()
-        buttonStartStop?.setText(R.string.stop)
+        dataModel.start()
     }
 
     private fun stop() {
         Log.v(TAG, "stopping workout")
-        dataModel.setStatus(false)
-        timeChrono?.stop()
-        buttonStartStop?.setText(R.string.start)
+        dataModel.pause()
     }
 }
