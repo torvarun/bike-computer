@@ -7,26 +7,35 @@ import androidx.lifecycle.ViewModel
 class DataModel : ViewModel() {
 
     private val speed : MutableLiveData<Double> by lazy {
-        MutableLiveData<Double>(0.0001)
+        MutableLiveData<Double>(24.3)
     }
 
     private val distance : MutableLiveData<Double> by lazy {
         MutableLiveData<Double>(10.3332)
     }
 
-    private val time : MutableLiveData<Double> by lazy {
-        MutableLiveData<Double>(1.54)
+    private val time : MutableLiveData<Long> by lazy {
+        MutableLiveData<Long>(154)
     }
 
-    fun getSpeed() : LiveData<Double> {
-        return speed
+    // true is started, false is paused
+    private val status : MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>(false)
     }
 
-    fun getDistance() : LiveData<Double> {
-        return distance
+    fun getSpeed() : LiveData<Double> = speed
+
+    fun getDistance() : LiveData<Double> = distance
+
+    fun getTime() : LiveData<Long> = time
+
+    fun setTime(newTime : Long) {
+        time.value = newTime
     }
 
-    fun getTime() : LiveData<Double> {
-        return time
+    fun getStatus() : Boolean? = status.value
+
+    fun setStatus(isRunning : Boolean) {
+        status.value = isRunning
     }
 }

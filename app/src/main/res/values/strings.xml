@@ -4,7 +4,6 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
     <string name="previous">Previous</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
@@ -16,4 +15,7 @@
     <string name="default_speed">15.7</string>
     <string name="default_distance">10.8</string>
     <string name="default_time">1:05:36</string>
+
+    <string name="start">Start Activity</string>
+    <string name="stop">Stop Activity</string>
 </resources>
