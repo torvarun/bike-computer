@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="run.torva.recycle.FirstFragment"
+        android:name="run.torva.recycle.WorkoutFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_workout">
     </fragment>
 </navigation>
