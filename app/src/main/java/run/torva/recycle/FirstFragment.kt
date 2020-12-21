@@ -16,7 +16,9 @@ import androidx.navigation.fragment.findNavController
  */
 class FirstFragment : Fragment() {
 
-    var textView : TextView? = null
+    var speedView : TextView? = null
+    var distanceView : TextView? = null
+    var timeView : TextView? = null
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -33,15 +35,26 @@ class FirstFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
-        textView = view.findViewById(R.id.textview_first)
+        speedView = view.findViewById(R.id.textview_speed)
+        distanceView = view.findViewById(R.id.textview_distance)
+        timeView = view.findViewById(R.id.textview_time)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         val dataModel : DataModel by viewModels()
-        dataModel.getSpeed().observe(viewLifecycleOwner, Observer<Double> { users ->
-            textView?.text = users.toString() + " kmph"
+
+        dataModel.getSpeed().observe(viewLifecycleOwner, Observer<Double> { speed ->
+            speedView?.text = speed.toString() + " kmph"
+        })
+
+        dataModel.getDistance().observe(viewLifecycleOwner, Observer<Double> { distance ->
+            distanceView?.text = distance.toString()
+        })
+
+        dataModel.getTime().observe(viewLifecycleOwner, Observer<Double> { time ->
+            timeView?.text = time.toString()
         })
     }
 }

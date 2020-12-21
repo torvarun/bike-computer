@@ -9,4 +9,11 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="title_speed">Speed (kmph):</string>
+    <string name="title_distance">Distance (km):</string>
+    <string name="title_time">Time (h:mm:ss):</string>
+    <string name="default_speed">15.7</string>
+    <string name="default_distance">10.8</string>
+    <string name="default_time">1:05:36</string>
 </resources>
