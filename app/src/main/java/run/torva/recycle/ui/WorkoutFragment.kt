@@ -52,9 +52,9 @@ class WorkoutFragment : Fragment() {
         })
 
         buttonStartStop?.setOnClickListener{
-            val state : Boolean = dataModel.getStatus().value ?: false
+            val isRunning : Boolean = dataModel.getStatus().value ?: false
 
-            if (state) {
+            if (isRunning) {
                 // this button click pauses activity
                 stop()
             } else {
@@ -84,6 +84,6 @@ class WorkoutFragment : Fragment() {
 
     private fun stop() {
         Log.v(TAG, "stopping workout")
-        dataModel.pause()
+        dataModel.stop()
     }
 }

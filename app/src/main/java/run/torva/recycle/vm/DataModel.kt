@@ -51,7 +51,7 @@ class DataModel : ViewModel(), Stopwatch.Listener {
         }
     }
 
-    fun pause() {
+    fun stop() {
         stopwatch.pause()
         status.postValue(false)
     }

@@ -30,7 +30,7 @@ class DataModelTest {
 
     @Test
     fun `pausing stopwatch sets status off`() {
-        dataModel.pause()
+        dataModel.stop()
 
         val status = dataModel.getStatus().value ?: false
         assertThat(status).isFalse()
