@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 class Stopwatch {
 
     interface Listener {
-        fun onTimeUpdated(elapsedTimeInSeconds : Long)
+        fun onTimeUpdated(elapsedTimeNanoseconds : Long)
     }
 
     private val execService : ScheduledExecutorService = Executors.newScheduledThreadPool(1)
@@ -44,8 +44,7 @@ class Stopwatch {
     }
 
     private fun updateListener(nanoTime : Long) {
-        val seconds = TimeUnit.SECONDS.convert(nanoTime, TimeUnit.NANOSECONDS)
-        listener?.onTimeUpdated(seconds)
+        listener?.onTimeUpdated(nanoTime)
     }
 
     private fun startTimer() {

@@ -11,7 +11,7 @@ import org.junit.Test
 class DataModelTest {
 
     @get:Rule
-    var instantExecutorRule  = InstantTaskExecutorRule()
+    val instantExecutorRule  = InstantTaskExecutorRule()
 
     private lateinit var dataModel: DataModel
 

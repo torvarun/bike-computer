@@ -41,8 +41,8 @@ class DataModel : ViewModel(), Stopwatch.Listener {
 
     fun getStatus() : LiveData<Boolean> = status
 
-    override fun onTimeUpdated(elapsedTimeInSeconds: Long) {
-        time.postValue(elapsedTimeInSeconds)
+    override fun onTimeUpdated(elapsedTimeNanoseconds: Long) {
+        time.postValue(elapsedTimeNanoseconds)
     }
 
     fun start() {
