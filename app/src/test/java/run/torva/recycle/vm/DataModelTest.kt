@@ -11,7 +11,7 @@ import org.junit.Test
 class DataModelTest {
 
     @get:Rule
-    var instantExecutorRule  = InstantTaskExecutorRule()
+    val instantExecutorRule  = InstantTaskExecutorRule()
 
     private lateinit var dataModel: DataModel
 
@@ -24,15 +24,15 @@ class DataModelTest {
     fun `starting stopwatch sets status on`() {
         dataModel.start()
 
-        val status = dataModel.getStatus().value ?: false
+        val status = dataModel.status.value ?: false
         assertThat(status).isTrue()
     }
 
     @Test
     fun `pausing stopwatch sets status off`() {
-        dataModel.pause()
+        dataModel.stop()
 
-        val status = dataModel.getStatus().value ?: false
+        val status = dataModel.status.value ?: false
         assertThat(status).isFalse()
     }
 }
