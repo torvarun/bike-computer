@@ -1,45 +1,49 @@
 package run.torva.recycle.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+
 /**
  * TODO
  */
-class Workout : Stopwatch.Listener {
+class Workout constructor(
+    private val stopwatch: Stopwatch = Stopwatch()
+): Stopwatch.Listener {
 
-    private val stopwatch : Stopwatch = Stopwatch()
     init {
         stopwatch.listener = this
     }
 
-    var currentTime : Long = 0
-        private set
+    private val _isRunning = MutableLiveData<Boolean>(false)
+    val isRunning : LiveData<Boolean> = _isRunning
+
+    private val _currentTime = MutableLiveData<Long>(0)
+    val currentTime : LiveData<Long> = _currentTime
 
     // TODO
-    var elapsedTime : Long = 0
-        private set
+    private val _elapsedTime = MutableLiveData<Long>(0)
+    val elapsedTime : LiveData<Long> = _elapsedTime
 
-    var isRunning : Boolean = false
-        private set
+    private val _distance = MutableLiveData<Double>(10.33)
+    val distance : LiveData<Double> = _distance
 
-    var distance : Double = 10.33
-        private set
-
-    var speed : Double = 24.3
-        private set
+    private val _speed = MutableLiveData<Double>(24.3)
+    val speed : LiveData<Double> = _speed
 
     fun start() {
         if (stopwatch.start()) {
-            isRunning = true
+            _isRunning.value = true
         }
     }
 
     fun pause() {
         stopwatch.pause()
-        isRunning = false
+        _isRunning.value = false
     }
 
     fun stop() {
         stopwatch.pause()
-        isRunning = false
+        _isRunning.value = false
         // TODO
     }
 
@@ -48,7 +52,7 @@ class Workout : Stopwatch.Listener {
     }
 
     override fun onTimeUpdated(elapsedTimeNanoseconds: Long) {
-        currentTime = elapsedTimeNanoseconds
+        _currentTime.value = elapsedTimeNanoseconds
     }
 
 }

@@ -1,18 +1,25 @@
 package run.torva.recycle.data
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
 import org.junit.Ignore
+import org.junit.Rule
 import org.junit.Test
 
 class WorkoutTest {
+
+    @get:Rule
+    val instantExecutorRule  = InstantTaskExecutorRule()
 
     @Test
     fun start() {
         val workout = Workout()
 
-        assertThat(workout.isRunning).isFalse()
+        val statusLiveData = workout.isRunning
+
+        assertThat(statusLiveData.value).isFalse()
         workout.start()
-        assertThat(workout.isRunning).isTrue()
+        assertThat(statusLiveData.value).isTrue()
 
         workout.stop()
         workout.destroy()
@@ -23,9 +30,11 @@ class WorkoutTest {
         val workout = Workout()
         workout.start()
 
-        assertThat(workout.isRunning).isTrue()
+        val statusLiveData = workout.isRunning
+
+        assertThat(statusLiveData.value).isTrue()
         workout.pause()
-        assertThat(workout.isRunning).isFalse()
+        assertThat(statusLiveData.value).isFalse()
 
         workout.stop()
         workout.destroy()
@@ -40,13 +49,13 @@ class WorkoutTest {
         Thread.sleep(onTime)
         workout.pause()
 
-        val current: Long = workout.currentTime
+        val current = workout.currentTime.value
         assertThat(current).isAtLeast(onTime)
 
         Thread.sleep(3000L)
 
         // current time should not have changed
-        assertThat(workout.currentTime).isEqualTo(current)
+        assertThat(workout.currentTime.value).isEqualTo(current)
 
         workout.stop()
         workout.destroy()
@@ -62,13 +71,13 @@ class WorkoutTest {
         Thread.sleep(onTime)
         workout.pause()
 
-        val elapsed = workout.elapsedTime
-        assertThat(elapsed).isAtLeast(onTime)
+        val elapsedLiveData = workout.elapsedTime
+        assertThat(elapsedLiveData.value).isAtLeast(onTime)
 
-        val delay: Long = 3000L
-        Thread.sleep(delay)
+        val pauseTime: Long = 3000L
+        Thread.sleep(pauseTime)
         // elapsed time should keep progressing
-        assertThat(workout.elapsedTime - elapsed).isAtLeast(delay)
+        assertThat(workout.elapsedTime.value).isAtLeast(onTime + pauseTime)
 
         workout.stop()
         workout.destroy()
@@ -77,11 +86,14 @@ class WorkoutTest {
     @Test
     fun stop() {
         val workout = Workout()
-
         workout.start()
-        assertThat(workout.isRunning).isTrue()
+
+        val statusLiveData = workout.isRunning
+
+        assertThat(statusLiveData.value).isTrue()
         workout.stop()
-        assertThat(workout.isRunning).isFalse()
+        assertThat(statusLiveData.value).isFalse()
+
         workout.destroy()
     }
 }
