@@ -12,13 +12,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import run.torva.recycle.R
 import run.torva.recycle.vm.DataModel
+import timber.log.Timber
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class WorkoutFragment : Fragment() {
-
-    private val TAG : String = "WorkoutFragment"
 
     private val dataModel : DataModel by viewModels()
 
@@ -78,12 +77,12 @@ class WorkoutFragment : Fragment() {
     }
 
     private fun start() {
-        Log.v(TAG, "starting workout")
+        Timber.d("starting workout")
         dataModel.start()
     }
 
     private fun stop() {
-        Log.v(TAG, "stopping workout")
+        Timber.d("stopping workout")
         dataModel.stop()
     }
 }
