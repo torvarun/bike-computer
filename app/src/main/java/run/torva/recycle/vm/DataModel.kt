@@ -4,64 +4,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import run.torva.recycle.data.Stopwatch
+import run.torva.recycle.data.Workout
 
-class DataModel : ViewModel(), Stopwatch.Listener {
+class DataModel constructor(
+    private val workout: Workout = Workout()
+): ViewModel() {
 
-    private val stopwatch : Stopwatch = Stopwatch()
-    init {
-        stopwatch.listener = this
-    }
+    val status : LiveData<Boolean> = workout.isRunning
 
-    private val speed : MutableLiveData<Double> by lazy {
-        MutableLiveData<Double>(24.3)
-    }
+    val speed : LiveData<Double> = workout.speed
 
-    private val distance : MutableLiveData<Double> by lazy {
-        MutableLiveData<Double>(10.3332)
-    }
+    val distance : LiveData<Double> = workout.distance
 
-    private val time : MutableLiveData<Long> by lazy {
-        MutableLiveData<Long>(154)
-    }
+    val currentTime : LiveData<Long> = workout.currentTime
 
-    // true is started, false is paused
-    private val status : MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>(false)
-    }
+    fun start() = workout.start()
 
-    fun getSpeed() : LiveData<Double> = speed
+    fun pause() = workout.pause()
 
-    fun getDistance() : LiveData<Double> = distance
-
-    fun getTime() : LiveData<Long> = time
-
-    fun setTime(newTime : Long) {
-        time.value = newTime
-    }
-
-    fun getStatus() : LiveData<Boolean> = status
-
-    override fun onTimeUpdated(elapsedTimeNanoseconds: Long) {
-        time.postValue(elapsedTimeNanoseconds)
-    }
-
-    fun start() {
-        if (stopwatch.start()) {
-            status.postValue(true)
-        }
-    }
-
-    fun stop() {
-        stopwatch.pause()
-        status.postValue(false)
-    }
-
-    fun reset() {
-        stopwatch.reset()
-    }
+    fun stop() = workout.stop()
 
     override fun onCleared() {
-        stopwatch.dispose()
+        workout.destroy()
         super.onCleared()
     }
 }

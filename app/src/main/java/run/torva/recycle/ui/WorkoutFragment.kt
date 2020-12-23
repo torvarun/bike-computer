@@ -43,16 +43,16 @@ class WorkoutFragment : Fragment() {
         buttonStartStop = view.findViewById(R.id.button_startstop)
         timeView = view.findViewById(R.id.textview_time)
 
-        dataModel.getSpeed().observe(viewLifecycleOwner, Observer<Double> { speed ->
+        dataModel.speed.observe(viewLifecycleOwner, Observer<Double> { speed ->
             speedView?.text = speed.toString()
         })
 
-        dataModel.getDistance().observe(viewLifecycleOwner, Observer<Double> { distance ->
+        dataModel.distance.observe(viewLifecycleOwner, Observer<Double> { distance ->
             distanceView?.text = distance.toString()
         })
 
         buttonStartStop?.setOnClickListener{
-            val isRunning : Boolean = dataModel.getStatus().value ?: false
+            val isRunning : Boolean = dataModel.status.value ?: false
 
             if (isRunning) {
                 // this button click pauses activity
@@ -63,7 +63,7 @@ class WorkoutFragment : Fragment() {
             }
         }
 
-        dataModel.getStatus().observe(viewLifecycleOwner, Observer<Boolean>{ isRunning ->
+        dataModel.status.observe(viewLifecycleOwner, Observer<Boolean>{ isRunning ->
             if (isRunning) {
                 buttonStartStop?.setText(R.string.stop)
             } else {
@@ -71,7 +71,7 @@ class WorkoutFragment : Fragment() {
             }
         })
 
-        dataModel.getTime().observe(viewLifecycleOwner, Observer<Long>{ time ->
+        dataModel.currentTime.observe(viewLifecycleOwner, Observer<Long>{ time ->
             // TODO format this
             timeView?.text = time.toString()
         })
