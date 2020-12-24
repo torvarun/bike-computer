@@ -1,7 +1,6 @@
 package run.torva.recycle.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -56,18 +55,18 @@ class WorkoutFragment : Fragment() {
 
             if (isRunning) {
                 // this button click pauses activity
-                stop()
+                pauseWorkout()
             } else {
                 // button click starts activity
-                start()
+                startWorkout()
             }
         }
 
         dataModel.status.observe(viewLifecycleOwner, Observer<Boolean>{ isRunning ->
-            if (isRunning) {
-                buttonStartStop?.setText(R.string.stop)
-            } else {
-                buttonStartStop?.setText(R.string.start)
+            when {
+                dataModel.inProgress.value == false -> buttonStartStop?.setText(R.string.start_workout)
+                isRunning -> buttonStartStop?.setText(R.string.pause_workout)
+                !isRunning -> buttonStartStop?.setText(R.string.resume_workout)
             }
         })
 
@@ -76,13 +75,13 @@ class WorkoutFragment : Fragment() {
         })
     }
 
-    private fun start() {
+    private fun startWorkout() {
         Timber.d("starting workout")
         dataModel.start()
     }
 
-    private fun stop() {
-        Timber.d("stopping workout")
-        dataModel.stop()
+    private fun pauseWorkout() {
+        Timber.d("pausing workout")
+        dataModel.pause()
     }
 }

@@ -21,18 +21,19 @@ class DataModelTest {
     }
 
     @Test
-    fun `starting stopwatch sets status on`() {
+    fun `starting stopwatch sets statuses on`() {
         dataModel.start()
 
-        val status = dataModel.status.value ?: false
-        assertThat(status).isTrue()
+        assertThat(dataModel.status.value).isTrue()
+        assertThat(dataModel.inProgress.value).isTrue()
     }
 
     @Test
-    fun `pausing stopwatch sets status off`() {
-        dataModel.stop()
+    fun `pausing stopwatch sets status off but keeps progress on`() {
+        dataModel.start()
+        dataModel.pause()
 
-        val status = dataModel.status.value ?: false
-        assertThat(status).isFalse()
+        assertThat(dataModel.status.value).isFalse()
+        assertThat(dataModel.inProgress.value).isTrue()
     }
 }

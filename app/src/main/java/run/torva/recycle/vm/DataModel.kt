@@ -10,6 +10,8 @@ class DataModel constructor(
     private val workout: Workout = Workout()
 ): ViewModel() {
 
+    val inProgress : LiveData<Boolean> = workout.inProgress
+
     val status : LiveData<Boolean> = workout.isRunning
 
     val speed : LiveData<Double> = workout.speed

@@ -16,6 +16,8 @@
     <string name="default_distance">10.8</string>
     <string name="default_time">1:05:36</string>
 
-    <string name="start">Start Workout</string>
-    <string name="stop">Stop Workout</string>
+    <string name="start_workout">Start Workout</string>
+    <string name="pause_workout">Pause Workout</string>
+    <string name="resume_workout">Resume Workout</string>
+    <string name="stop_workout">Stop Workout</string>
 </resources>

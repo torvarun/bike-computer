@@ -2,9 +2,11 @@ package run.torva.recycle.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
+import org.junit.Assert.assertThrows
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
+import java.lang.IllegalStateException
 import java.util.concurrent.TimeUnit
 
 class WorkoutTest {
@@ -13,31 +15,53 @@ class WorkoutTest {
     val instantExecutorRule  = InstantTaskExecutorRule()
 
     @Test
-    fun start() {
+    fun `starting workout sets inProgress and isRunning to on`() {
         val workout = Workout()
 
         val statusLiveData = workout.isRunning
+        val inProgressLiveData = workout.inProgress
 
         assertThat(statusLiveData.value).isFalse()
+        assertThat(inProgressLiveData.value).isFalse()
+
         workout.start()
+
         assertThat(statusLiveData.value).isTrue()
+        assertThat(inProgressLiveData.value).isTrue()
 
         workout.stop()
         workout.destroy()
     }
 
     @Test
-    fun pause() {
+    fun `pausing workout sets isRunning to off but keeps inProgress on`() {
         val workout = Workout()
         workout.start()
 
         val statusLiveData = workout.isRunning
+        val inProgressLiveData = workout.inProgress
 
         assertThat(statusLiveData.value).isTrue()
+        assertThat(inProgressLiveData.value).isTrue()
+
         workout.pause()
         assertThat(statusLiveData.value).isFalse()
+        assertThat(inProgressLiveData.value).isTrue()
 
         workout.stop()
+        workout.destroy()
+    }
+
+    @Test
+    fun `calling pause before start throws exception`() {
+        val workout = Workout()
+
+        val exception = assertThrows(IllegalStateException::class.java) {
+            workout.pause()
+        }
+
+        assertThat(exception).isInstanceOf(IllegalStateException::class.java)
+
         workout.destroy()
     }
 
@@ -87,15 +111,18 @@ class WorkoutTest {
     }
 
     @Test
-    fun stop() {
+    fun `stopping workout sets inProgress and isRunning to false`() {
         val workout = Workout()
         workout.start()
 
         val statusLiveData = workout.isRunning
+        val inProgressLiveData = workout.inProgress
 
         assertThat(statusLiveData.value).isTrue()
+        assertThat(inProgressLiveData.value).isTrue()
         workout.stop()
         assertThat(statusLiveData.value).isFalse()
+        assertThat(inProgressLiveData.value).isFalse()
 
         workout.destroy()
     }
