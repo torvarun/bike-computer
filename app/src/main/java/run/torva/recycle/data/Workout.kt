@@ -2,6 +2,7 @@ package run.torva.recycle.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import java.util.concurrent.TimeUnit
 
 /**
  * TODO
@@ -52,7 +53,9 @@ class Workout constructor(
     }
 
     override fun onTimeUpdated(elapsedTimeNanoseconds: Long) {
-        _currentTime.value = elapsedTimeNanoseconds
+        _currentTime.postValue(
+            TimeUnit.SECONDS.convert(elapsedTimeNanoseconds, TimeUnit.NANOSECONDS)
+        )
     }
 
 }

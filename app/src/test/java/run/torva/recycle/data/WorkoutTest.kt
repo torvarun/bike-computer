@@ -5,6 +5,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
+import java.util.concurrent.TimeUnit
 
 class WorkoutTest {
 
@@ -50,7 +51,9 @@ class WorkoutTest {
         workout.pause()
 
         val current = workout.currentTime.value
-        assertThat(current).isAtLeast(onTime)
+        assertThat(current).isAtLeast(
+            TimeUnit.SECONDS.convert(onTime, TimeUnit.MILLISECONDS)
+        )
 
         Thread.sleep(3000L)
 

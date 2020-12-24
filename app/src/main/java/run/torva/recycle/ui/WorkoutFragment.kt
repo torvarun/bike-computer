@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import run.torva.recycle.R
+import run.torva.recycle.timeToFormattedString
 import run.torva.recycle.vm.DataModel
 import timber.log.Timber
 
@@ -71,8 +72,7 @@ class WorkoutFragment : Fragment() {
         })
 
         dataModel.currentTime.observe(viewLifecycleOwner, Observer<Long>{ time ->
-            // TODO format this
-            timeView?.text = time.toString()
+            timeView?.text = timeToFormattedString(time)
         })
     }
 
