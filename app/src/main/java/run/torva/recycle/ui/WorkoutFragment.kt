@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
 import run.torva.recycle.R
 import run.torva.recycle.timeToFormattedString
 import run.torva.recycle.vm.DataModel
@@ -17,6 +18,7 @@ import timber.log.Timber
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
+@AndroidEntryPoint
 class WorkoutFragment : Fragment() {
 
     private val dataModel : DataModel by viewModels()

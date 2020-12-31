@@ -7,6 +7,7 @@ import org.junit.Rule
 import com.google.common.truth.Truth.assertThat;
 
 import org.junit.Test
+import run.torva.recycle.data.Workout
 
 class DataModelTest {
 
@@ -17,7 +18,7 @@ class DataModelTest {
 
     @Before
     fun setUp() {
-        dataModel = DataModel()
+        dataModel = DataModel(workout = Workout())
     }
 
     @Test

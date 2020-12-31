@@ -1,13 +1,15 @@
 package run.torva.recycle.vm
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import run.torva.recycle.data.Stopwatch
 import run.torva.recycle.data.Workout
+import javax.inject.Named
 
-class DataModel constructor(
-    private val workout: Workout = Workout()
+class DataModel @ViewModelInject constructor(
+    @Named("current_workout") val workout : Workout
 ): ViewModel() {
 
     val inProgress : LiveData<Boolean> = workout.inProgress
