@@ -1,8 +1,10 @@
 package run.torva.recycle
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
+@HiltAndroidApp
 class RecycleApp : Application() {
 
     override fun onCreate() {
