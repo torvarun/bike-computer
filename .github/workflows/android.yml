@@ -3,12 +3,14 @@ name: Android CI
 on:
   push:
     branches:
-      - main
+      - master
       - dev
+      - di-refactor
   pull_request:
     branches:
-      - main
+      - master
       - dev
+      - di-refactor
 
 jobs:
   build:

@@ -9,17 +9,19 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
 import run.torva.recycle.R
 import run.torva.recycle.timeToFormattedString
-import run.torva.recycle.vm.DataModel
+import run.torva.recycle.vm.WorkoutFragmentViewModel
 import timber.log.Timber
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
+@AndroidEntryPoint
 class WorkoutFragment : Fragment() {
 
-    private val dataModel : DataModel by viewModels()
+    private val workoutFragmentViewModel : WorkoutFragmentViewModel by viewModels()
 
     private var speedView : TextView? = null
     private var distanceView : TextView? = null
@@ -42,16 +44,16 @@ class WorkoutFragment : Fragment() {
         buttonStartStop = view.findViewById(R.id.button_startstop)
         timeView = view.findViewById(R.id.textview_time)
 
-        dataModel.speed.observe(viewLifecycleOwner, Observer<Double> { speed ->
+        workoutFragmentViewModel.speed.observe(viewLifecycleOwner, Observer<Double> { speed ->
             speedView?.text = speed.toString()
         })
 
-        dataModel.distance.observe(viewLifecycleOwner, Observer<Double> { distance ->
+        workoutFragmentViewModel.distance.observe(viewLifecycleOwner, Observer<Double> { distance ->
             distanceView?.text = distance.toString()
         })
 
         buttonStartStop?.setOnClickListener{
-            val isRunning : Boolean = dataModel.status.value ?: false
+            val isRunning : Boolean = workoutFragmentViewModel.status.value ?: false
 
             if (isRunning) {
                 // this button click pauses activity
@@ -62,26 +64,26 @@ class WorkoutFragment : Fragment() {
             }
         }
 
-        dataModel.status.observe(viewLifecycleOwner, Observer<Boolean>{ isRunning ->
+        workoutFragmentViewModel.status.observe(viewLifecycleOwner, Observer<Boolean>{ isRunning ->
             when {
-                dataModel.inProgress.value == false -> buttonStartStop?.setText(R.string.start_workout)
+                workoutFragmentViewModel.inProgress.value == false -> buttonStartStop?.setText(R.string.start_workout)
                 isRunning -> buttonStartStop?.setText(R.string.pause_workout)
                 !isRunning -> buttonStartStop?.setText(R.string.resume_workout)
             }
         })
 
-        dataModel.currentTime.observe(viewLifecycleOwner, Observer<Long>{ time ->
+        workoutFragmentViewModel.currentTime.observe(viewLifecycleOwner, Observer<Long>{ time ->
             timeView?.text = timeToFormattedString(time)
         })
     }
 
     private fun startWorkout() {
         Timber.d("starting workout")
-        dataModel.start()
+        workoutFragmentViewModel.start()
     }
 
     private fun pauseWorkout() {
         Timber.d("pausing workout")
-        dataModel.pause()
+        workoutFragmentViewModel.pause()
     }
 }
