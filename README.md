@@ -15,18 +15,19 @@ It is the client's responsibility to start a workout session, keep track of time
 ## Dependencies
 
 - The usual [Android stuff](./app/build.gradle)
-- Tinder's [Scarlet](https://github.com/Tinder/Scarlet) for websocket connections
-- Coroutines and the likes
+    - Dagger Hilt for DI
+    - Tinder's [Scarlet](https://github.com/Tinder/Scarlet) for websocket connections
+    - Coroutines and the likes
 
 ## TODO
-[] Bluetooth interface
+[ ] Bluetooth interface
 
-[] How to docs
+[ ] How to docs
 
-[] Variable wheel-size calculations
+[ ] Variable wheel-size calculations
 
-[] Data store for past workouts (Firebase?)
+[ ] Data store for past workouts (Firebase?)
 
-[] App theme + logo
+[ ] App theme + logo
 
-[] Workout data graphs
+[ ] Workout data graphs
