@@ -12,6 +12,8 @@ The microcontroller serves a websocket with JSON data fpr the app connects to. T
 
 It is the client's responsibility to start a workout session, keep track of time, calculate distance, speed etc.
 
+Development notes are in [notes.md](./notes.md).
+
 ## Dependencies
 
 - The usual [Android stuff](./app/build.gradle)
@@ -20,14 +22,14 @@ It is the client's responsibility to start a workout session, keep track of time
     - Coroutines and the likes
 
 ## TODO
-[ ] Bluetooth interface
+- [ ] Bluetooth interface
 
-[ ] How to docs
+- [ ] How to docs
 
-[ ] Variable wheel-size calculations
+- [ ] Variable wheel-size calculations
 
-[ ] Data store for past workouts (Firebase?)
+- [ ] Data store for past workouts (Firebase?)
 
-[ ] App theme + logo
+- [ ] App theme + logo
 
-[ ] Workout data graphs
+- [ ] Workout data graphs
