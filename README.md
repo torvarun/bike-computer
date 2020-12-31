@@ -6,11 +6,27 @@ My humble attempt at building my own bike computer to make this injury recovery 
 
 This repo contains the android app. Hardware will be up at another repo soon.
 
+## Overview
+
+The microcontroller serves a websocket with JSON data fpr the app connects to. To minimize hardware complexity, only raw data is served (currently just the rear-wheel RPM).
+
+It is the client's responsibility to start a workout session, keep track of time, calculate distance, speed etc.
+
 ## Dependencies
 
-## Build requirements
+- The usual [Android stuff](./app/build.gradle)
+- Tinder's [Scarlet](https://github.com/Tinder/Scarlet) for websocket connections
+- Coroutines and the likes
 
 ## TODO
-- Hardware repo
-- Bluetooth interface
-- How to docs
+[] Bluetooth interface
+
+[] How to docs
+
+[] Variable wheel-size calculations
+
+[] Data store for past workouts (Firebase?)
+
+[] App theme + logo
+
+[] Workout data graphs
