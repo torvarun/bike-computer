@@ -8,7 +8,7 @@ import run.torva.recycle.data.Stopwatch
 import run.torva.recycle.data.Workout
 import javax.inject.Named
 
-class DataModel @ViewModelInject constructor(
+class WorkoutFragmentViewModel @ViewModelInject constructor(
     @Named("current_workout") val workout : Workout
 ): ViewModel() {
 
